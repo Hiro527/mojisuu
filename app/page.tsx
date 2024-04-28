@@ -32,6 +32,12 @@ export default function Home() {
         handleTextUpdate(text, avoidTags, value);
     };
 
+    const handleClear = () => {
+        setText('');
+        setLength(0);
+        setLengthWithoutSpace(0);
+    };
+
     return (
         <main>
             <CssBaseline>
@@ -49,10 +55,23 @@ export default function Home() {
                             control={<Checkbox defaultChecked onChange={(ev) => handleReturnCheckUpdate(ev.target.checked)}></Checkbox>}
                             label="改行を無視する"
                         ></FormControlLabel>
-                        <TextField multiline fullWidth rows={20} onChange={(ev) => handleTextUpdate(ev.target.value)}></TextField>
-                        <Typography sx={{ marginTop: '10px' }} variant="h6">
-                            {length}文字 / {lengthWithoutSpace}文字(空白以外)
-                        </Typography>
+                        <TextField multiline fullWidth rows={20} onChange={(ev) => handleTextUpdate(ev.target.value)} value={text}></TextField>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginTop: '10px',
+                            }}
+                        >
+                            <Typography sx={{ marginTop: '10px' }} variant="h6">
+                                {length}文字 / {lengthWithoutSpace}文字(空白以外)
+                            </Typography>
+                            <Button variant="contained" color="error" onClick={handleClear}>
+                                クリア
+                            </Button>
+                        </Box>
                     </Grid>
                 </Grid>
             </CssBaseline>
